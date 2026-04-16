@@ -1,0 +1,210 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>NowYourTurn - World Rankings</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+        }
+        
+        .header {
+            background: white;
+            padding: 20px;
+            text-align: center;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+        
+        .header h1 {
+            color: #667eea;
+            font-size: 2.5rem;
+        }
+        
+        .header p {
+            color: #666;
+            margin-top: 5px;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 40px auto;
+            padding: 0 20px;
+        }
+        
+        .category {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 25px;
+        }
+        
+        .card {
+            background: white;
+            border-radius: 15px;
+            padding: 25px;
+            transition: transform 0.3s, box-shadow 0.3s;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.1);
+        }
+        
+        .card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 35px rgba(0,0,0,0.15);
+        }
+        
+        .card h3 {
+            color: #333;
+            font-size: 1.5rem;
+            margin-bottom: 10px;
+        }
+        
+        .card p {
+            color: #777;
+            margin-bottom: 15px;
+        }
+        
+        .btn {
+            display: inline-block;
+            background: #667eea;
+            color: white;
+            padding: 10px 20px;
+            border-radius: 25px;
+            text-decoration: none;
+            font-weight: bold;
+            transition: background 0.3s;
+        }
+        
+        .btn:hover {
+            background: #5a67d8;
+        }
+        
+        .footer {
+            background: #1a1a2e;
+            color: white;
+            text-align: center;
+            padding: 30px;
+            margin-top: 50px;
+        }
+    </style>
+</head>
+<body>
+
+<div class="header">
+    <h1>🚀 NowYourTurn</h1>
+    <p>World Rankings at your fingertips</p>
+</div>
+
+<div class="container">
+    <div class="category">
+        
+        <!-- Card 1 -->
+        <div class="card">
+            <h3>📱 Top 10 Instagram Creators in India</h3>
+            <p>2026 latest rankings with follower counts and categories</p>
+            <a href="#" class="btn" id="link1">Read Full List →</a>
+        </div>
+        
+        <!-- Card 2 -->
+        <div class="card">
+            <h3>👑 Most Followed People in World</h3>
+            <p>Top celebrities, athletes, and creators globally</p>
+            <a href="#" class="btn" id="link2">Read Full List →</a>
+        </div>
+        
+        <!-- Card 3 -->
+        <div class="card">
+            <h3>🎬 Top 10 YouTubers in India</h3>
+            <p>Highest subscribed Indian YouTube channels</p>
+            <a href="#" class="btn" id="link3">Read Full List →</a>
+        </div>
+        
+        <!-- Card 4 -->
+        <div class="card">
+            <h3>🏏 Best Cricketers Ranking 2026</h3>
+            <p>ICC rankings and performance-based list</p>
+            <a href="#" class="btn" id="link4">Read Full List →</a>
+        </div>
+        
+        <!-- Card 5 -->
+        <div class="card">
+            <h3>💰 Top 10 Richest YouTubers</h3>
+            <p>Highest earning content creators</p>
+            <a href="#" class="btn" id="link5">Read Full List →</a>
+        </div>
+        
+        <!-- Card 6 -->
+        <div class="card">
+            <h3>⭐ Most Popular Influencers in India</h3>
+            <p>Social media stars dominating 2026</p>
+            <a href="#" class="btn" id="link6">Read Full List →</a>
+        </div>
+        
+        <!-- Card 7 -->
+        <div class="card">
+            <h3>🎵 Top 10 TikTok Stars (Global)</h3>
+            <p>World's biggest short-form creators</p>
+            <a href="#" class="btn" id="link7">Read Full List →</a>
+        </div>
+        
+        <!-- Card 8 -->
+        <div class="card">
+            <h3>⚽ Best Football Players 2026</h3>
+            <p>Messi, Ronaldo, and rising stars</p>
+            <a href="#" class="btn" id="link8">Read Full List →</a>
+        </div>
+        
+        <!-- Card 9 -->
+        <div class="card">
+            <h3>🎮 Top 10 Gaming YouTubers</h3>
+            <p>Best gaming content creators</p>
+            <a href="#" class="btn" id="link9">Read Full List →</a>
+        </div>
+        
+        <!-- Card 10 -->
+        <div class="card">
+            <h3>🌟 Most Followed Celebrities on Instagram</h3>
+            <p>Global stars with biggest fan following</p>
+            <a href="#" class="btn" id="link10">Read Full List →</a>
+        </div>
+        
+    </div>
+</div>
+
+<div class="footer">
+    <p>© 2026 NowYourTurn - Accurate Rankings & Lists</p>
+    <p>Stay updated. Stay ahead.</p>
+</div>
+
+<script>
+    // 🔴 IMPORTANT: Blogger links yahan daalni hai baad mein
+    // Abhi ke liye # hai, baad mein replace karna
+    
+    const links = {
+        link1: "#",  // Instagram creators ka blogger link
+        link2: "#",  // Most followed ka blogger link
+        link3: "#",  // YouTubers ka blogger link
+        link4: "#",  // Cricketers ka blogger link
+        link5: "#",  // Richest YouTubers ka blogger link
+        link6: "#",  // Influencers ka blogger link
+        link7: "#",  // TikTok stars ka blogger link
+        link8: "#",  // Football players ka blogger link
+        link9: "#",  // Gaming YouTubers ka blogger link
+        link10: "#"  // Celebrities ka blogger link
+    };
+    
+    // Apply links to buttons
+    for(let [id, url] of Object.entries(links)) {
+        let btn = document.getElementById(id);
+        if(btn) btn.href = url;
+    }
+</script>
+
+</body>
+</html>
