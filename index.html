@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>NowYourTurn - World Rankings</title>
+    <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+</head>
+<body>
+
+    <!-- Navbar -->
+    <nav class="navbar">
+        <div class="nav-container">
+            <a href="/" class="logo">🚀 NowYourTurn</a>
+            <div class="nav-links">
+                <a href="/">Home</a>
+                <a href="#">Rankings</a>
+                <a href="#">Categories</a>
+                <a href="#">Trending</a>
+                <a href="#">About</a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <h1>Who <span class="gradient-text">Rules</span> The World?</h1>
+        <p>Discover the most influential creators, athletes, and celebrities in 2026</p>
+        <button class="cta-btn" onclick="alert('Coming Soon!')">Explore Rankings →</button>
+    </section>
+
+    <!-- Stats -->
+    <div class="stats">
+        <div class="stat-card"><div class="stat-number">500+</div><div>CREATORS</div></div>
+        <div class="stat-card"><div class="stat-number">15+</div><div>CATEGORIES</div></div>
+        <div class="stat-card"><div class="stat-number">3.2B+</div><div>FOLLOWERS</div></div>
+        <div class="stat-card"><div class="stat-number">50+</div><div>COUNTRIES</div></div>
+    </div>
+
+    <!-- Categories -->
+    <div class="categories">
+        <h2>Browse by <span class="gradient-text">Category</span></h2>
+        <div class="category-grid">
+            <div class="category-card">🏏 Cricket</div>
+            <div class="category-card">📸 Instagram</div>
+            <div class="category-card">▶️ YouTube</div>
+            <div class="category-card">💼 Business</div>
+            <div class="category-card">🎬 Entertainment</div>
+        </div>
+    </div>
+
+    <!-- Top Creators -->
+    <div class="creators">
+        <h2>🏆 Top Ranked <span class="gradient-text">Creators</span></h2>
+        <div class="creator-grid" id="creatorGrid"></div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <p>© 2026 NowYourTurn - The Global Creator Index</p>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+</html>
