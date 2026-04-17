@@ -2,66 +2,198 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>NowYourTurn - World Rankings</title>
-    <link rel="stylesheet" href="style.css">
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+    <title>NowYourTurn - 3D Global Rankings</title>
+    
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- Font Awesome -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    
+    <!-- External CSS -->
+    <link rel="stylesheet" href="style.css">
 </head>
 <body>
 
+<!-- Loading Screen -->
+<div class="loading-screen" id="loadingScreen">
+    <div class="loader"></div>
+    <div class="loader-text">NowYourTurn</div>
+</div>
+
+<!-- 3D Canvas Container -->
+<div id="canvas-container"></div>
+
+<!-- Particles Container -->
+<div id="particles-container"></div>
+
+<!-- Main Content -->
+<div class="relative z-10">
+
     <!-- Navbar -->
-    <nav class="navbar">
-        <div class="nav-container">
-            <a href="/" class="logo">🚀 NowYourTurn</a>
-            <div class="nav-links">
-                <a href="/">Home</a>
-                <a href="#">Rankings</a>
-                <a href="#">Categories</a>
-                <a href="#">Trending</a>
-                <a href="#">About</a>
+    <nav class="fixed top-0 w-full z-50 glass py-4 px-6 md:px-12 transition-all duration-300" id="navbar">
+        <div class="max-w-7xl mx-auto flex justify-between items-center">
+            <a href="/" class="text-2xl md:text-3xl font-black gradient-text-3d flex items-center gap-2">
+                <i class="fas fa-crown text-yellow-400 logo-crown"></i>
+                NowYourTurn
+            </a>
+            
+            <div class="hidden md:flex gap-8">
+                <a href="/" class="text-white/80 hover:text-[#ff7cf5] transition-all nav-link">Home</a>
+                <a href="#" class="text-white/80 hover:text-[#ff7cf5] transition-all nav-link" id="rankingsLink">Rankings</a>
+                <a href="#" class="text-white/80 hover:text-[#ff7cf5] transition-all nav-link" id="categoriesLink">Categories</a>
+                <a href="#" class="text-white/80 hover:text-[#ff7cf5] transition-all nav-link" id="trendingLink">Trending</a>
+                <a href="#" class="text-white/80 hover:text-[#ff7cf5] transition-all nav-link" id="aboutLink">About</a>
             </div>
+            
+            <button class="md:hidden text-white text-2xl" id="mobileMenuBtn">
+                <i class="fas fa-bars"></i>
+            </button>
         </div>
     </nav>
 
-    <!-- Hero Section -->
-    <section class="hero">
-        <h1>Who <span class="gradient-text">Rules</span> The World?</h1>
-        <p>Discover the most influential creators, athletes, and celebrities in 2026</p>
-        <button class="cta-btn" onclick="alert('Coming Soon!')">Explore Rankings →</button>
-    </section>
-
-    <!-- Stats -->
-    <div class="stats">
-        <div class="stat-card"><div class="stat-number">500+</div><div>CREATORS</div></div>
-        <div class="stat-card"><div class="stat-number">15+</div><div>CATEGORIES</div></div>
-        <div class="stat-card"><div class="stat-number">3.2B+</div><div>FOLLOWERS</div></div>
-        <div class="stat-card"><div class="stat-number">50+</div><div>COUNTRIES</div></div>
-    </div>
-
-    <!-- Categories -->
-    <div class="categories">
-        <h2>Browse by <span class="gradient-text">Category</span></h2>
-        <div class="category-grid">
-            <div class="category-card">🏏 Cricket</div>
-            <div class="category-card">📸 Instagram</div>
-            <div class="category-card">▶️ YouTube</div>
-            <div class="category-card">💼 Business</div>
-            <div class="category-card">🎬 Entertainment</div>
+    <!-- Mobile Menu -->
+    <div class="fixed top-0 right-0 w-64 h-full glass z-50 transform translate-x-full transition-transform duration-300" id="mobileMenu">
+        <button class="absolute top-4 right-4 text-white text-xl" id="closeMenuBtn">
+            <i class="fas fa-times"></i>
+        </button>
+        <div class="flex flex-col gap-6 p-8 pt-20">
+            <a href="/" class="text-white/80 hover:text-[#ff7cf5] transition-all">Home</a>
+            <a href="#" class="text-white/80 hover:text-[#ff7cf5] transition-all rankings-link">Rankings</a>
+            <a href="#" class="text-white/80 hover:text-[#ff7cf5] transition-all categories-link">Categories</a>
+            <a href="#" class="text-white/80 hover:text-[#ff7cf5] transition-all trending-link">Trending</a>
+            <a href="#" class="text-white/80 hover:text-[#ff7cf5] transition-all about-link">About</a>
         </div>
     </div>
 
-    <!-- Top Creators -->
-    <div class="creators">
-        <h2>🏆 Top Ranked <span class="gradient-text">Creators</span></h2>
-        <div class="creator-grid" id="creatorGrid"></div>
+    <!-- Hero Section -->
+    <section class="min-h-screen flex items-center justify-center px-6 relative" id="heroSection">
+        <div class="text-center max-w-5xl mx-auto">
+            <div class="inline-block mb-6">
+                <span class="px-4 py-2 rounded-full text-sm font-semibold animated-border text-white">
+                    🔥 GLOBAL CREATOR INDEX 2026
+                </span>
+            </div>
+            
+            <h1 class="text-5xl md:text-7xl lg:text-8xl font-black mb-6">
+                Who <span class="gradient-text-3d">Rules</span>
+                <br>The World?
+            </h1>
+            
+            <p class="text-lg md:text-xl text-white/60 max-w-2xl mx-auto mb-8">
+                Discover the most influential creators, athletes, and celebrities 
+                ranked by <span class="text-[#ff7cf5]">AI-powered influence score</span>
+            </p>
+            
+            <div class="flex gap-4 justify-center flex-wrap">
+                <button onclick="scrollToCategories()" class="neon-btn px-8 py-3 rounded-full bg-gradient-to-r from-[#ff7cf5] to-[#00d2fd] text-black font-bold text-lg">
+                    Explore Rankings <i class="fas fa-arrow-right ml-2"></i>
+                </button>
+                <button class="neon-btn-outline px-8 py-3 rounded-full glass border border-white/20 text-white font-bold">
+                    <i class="fas fa-play mr-2"></i> Watch Demo
+                </button>
+            </div>
+        </div>
+    </section>
+
+    <!-- Stats Section -->
+    <div class="max-w-7xl mx-auto px-6 py-16">
+        <div class="grid grid-cols-2 md:grid-cols-4 gap-6">
+            <div class="glass-card rounded-2xl p-6 text-center card-reveal">
+                <div class="text-3xl md:text-4xl font-black gradient-text-3d stat-number" data-target="500">0</div>
+                <div class="text-white/50 text-sm mt-2">CREATORS</div>
+            </div>
+            <div class="glass-card rounded-2xl p-6 text-center card-reveal">
+                <div class="text-3xl md:text-4xl font-black gradient-text-3d stat-number" data-target="15">0</div>
+                <div class="text-white/50 text-sm mt-2">CATEGORIES</div>
+            </div>
+            <div class="glass-card rounded-2xl p-6 text-center card-reveal">
+                <div class="text-3xl md:text-4xl font-black gradient-text-3d stat-number" data-target="32">0</div>
+                <div class="text-white/50 text-sm mt-2">BILLION FOLLOWERS</div>
+            </div>
+            <div class="glass-card rounded-2xl p-6 text-center card-reveal">
+                <div class="text-3xl md:text-4xl font-black gradient-text-3d stat-number" data-target="50">0</div>
+                <div class="text-white/50 text-sm mt-2">COUNTRIES</div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Categories Section -->
+    <div class="max-w-7xl mx-auto px-6 py-16" id="categoriesSection">
+        <h2 class="text-3xl md:text-4xl font-bold text-center mb-12">
+            Browse by <span class="gradient-text-3d">Category</span>
+        </h2>
+        <div class="grid grid-cols-2 md:grid-cols-5 gap-4 md:gap-6">
+            <div class="category-card cursor-pointer" data-category="cricket">
+                <div class="w-16 h-16 mx-auto rounded-full bg-gradient-to-br from-green-500 to-yellow-500 flex items-center justify-center text-2xl">
+                    🏏
+                </div>
+                <span class="mt-3 text-sm font-semibold">Cricket</span>
+            </div>
+            <div class="category-card cursor-pointer" data-category="instagram">
+                <div class="w-16 h-16 mx-auto rounded-full bg-gradient-to-br from-yellow-400 to-pink-500 flex items-center justify-center text-2xl">
+                    📸
+                </div>
+                <span class="mt-3 text-sm font-semibold">Instagram</span>
+            </div>
+            <div class="category-card cursor-pointer" data-category="youtube">
+                <div class="w-16 h-16 mx-auto rounded-full bg-gradient-to-br from-red-600 to-red-800 flex items-center justify-center text-2xl">
+                    ▶️
+                </div>
+                <span class="mt-3 text-sm font-semibold">YouTube</span>
+            </div>
+            <div class="category-card cursor-pointer" data-category="business">
+                <div class="w-16 h-16 mx-auto rounded-full bg-gradient-to-br from-blue-500 to-cyan-400 flex items-center justify-center text-2xl">
+                    💼
+                </div>
+                <span class="mt-3 text-sm font-semibold">Business</span>
+            </div>
+            <div class="category-card cursor-pointer" data-category="entertainment">
+                <div class="w-16 h-16 mx-auto rounded-full bg-gradient-to-br from-purple-500 to-pink-500 flex items-center justify-center text-2xl">
+                    🎬
+                </div>
+                <span class="mt-3 text-sm font-semibold">Entertainment</span>
+            </div>
+        </div>
+    </div>
+
+    <!-- Top Creators Section -->
+    <div class="max-w-7xl mx-auto px-6 py-16">
+        <h2 class="text-3xl md:text-4xl font-bold text-center mb-12">
+            🏆 Top Ranked <span class="gradient-text-3d">Creators</span>
+        </h2>
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-6" id="creatorsGrid">
+            <!-- Creators will be loaded via JavaScript -->
+        </div>
+    </div>
+
+    <!-- CTA Section -->
+    <div class="max-w-4xl mx-auto px-6 py-16 text-center">
+        <div class="glass-card rounded-3xl p-8 md:p-12">
+            <h3 class="text-2xl md:text-3xl font-bold mb-4">Ready to Find Your Favorite Creator?</h3>
+            <p class="text-white/60 mb-6">Join thousands of users exploring the world's most comprehensive ranking platform.</p>
+            <button class="neon-btn px-8 py-3 rounded-full bg-gradient-to-r from-[#ff7cf5] to-[#00d2fd] text-black font-bold">
+                Get Started Now <i class="fas fa-arrow-right ml-2"></i>
+            </button>
+        </div>
     </div>
 
     <!-- Footer -->
-    <footer class="footer">
-        <p>© 2026 NowYourTurn - The Global Creator Index</p>
+    <footer class="border-t border-white/10 py-8 mt-16">
+        <div class="max-w-7xl mx-auto px-6 text-center">
+            <p class="text-white/40 text-sm">© 2026 NowYourTurn - The Global Creator Index</p>
+            <div class="flex justify-center gap-6 mt-4">
+                <a href="#" class="text-white/40 hover:text-[#ff7cf5] text-sm transition-all">About</a>
+                <a href="#" class="text-white/40 hover:text-[#ff7cf5] text-sm transition-all">Contact</a>
+                <a href="#" class="text-white/40 hover:text-[#ff7cf5] text-sm transition-all">Privacy</a>
+                <a href="#" class="text-white/40 hover:text-[#ff7cf5] text-sm transition-all">Terms</a>
+            </div>
+        </div>
     </footer>
+</div>
 
-    <script src="script.js"></script>
+<!-- External JavaScript -->
+<script src="script.js"></script>
 </body>
 </html>
