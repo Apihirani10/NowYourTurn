@@ -1,4 +1,4 @@
-// script.js - All JavaScript with 3D and Animations
+// ========== SCRIPT.JS - COMPLETE WORKING CODE ==========
 
 // ========== LOADING SCREEN ==========
 window.addEventListener('load', function() {
@@ -25,13 +25,15 @@ window.addEventListener('scroll', function() {
 
 // ========== NAVBAR SCROLL EFFECT ==========
 const navbar = document.getElementById('navbar');
-window.addEventListener('scroll', function() {
-    if (window.scrollY > 50) {
-        navbar.classList.add('navbar-scrolled');
-    } else {
-        navbar.classList.remove('navbar-scrolled');
-    }
-});
+if (navbar) {
+    window.addEventListener('scroll', function() {
+        if (window.scrollY > 50) {
+            navbar.classList.add('navbar-scrolled');
+        } else {
+            navbar.classList.remove('navbar-scrolled');
+        }
+    });
+}
 
 // ========== MOBILE MENU ==========
 const mobileMenuBtn = document.getElementById('mobileMenuBtn');
@@ -53,7 +55,6 @@ if (closeMenuBtn) closeMenuBtn.addEventListener('click', closeMobileMenu);
 
 // ========== SCROLL REVEAL ANIMATION ==========
 const revealElements = document.querySelectorAll('.card-reveal');
-
 const revealObserver = new IntersectionObserver((entries) => {
     entries.forEach(entry => {
         if (entry.isIntersecting) {
@@ -62,40 +63,13 @@ const revealObserver = new IntersectionObserver((entries) => {
         }
     });
 }, { threshold: 0.1 });
-
 revealElements.forEach(el => revealObserver.observe(el));
-
-// ========== STATS COUNTER ANIMATION ==========
-const statNumbers = document.querySelectorAll('.stat-number');
-
-const counterObserver = new IntersectionObserver((entries) => {
-    entries.forEach(entry => {
-        if (entry.isIntersecting) {
-            const el = entry.target;
-            const target = parseInt(el.getAttribute('data-target'));
-            let current = 0;
-            const increment = target / 50;
-            const timer = setInterval(() => {
-                current += increment;
-                if (current >= target) {
-                    el.textContent = target + (el.getAttribute('data-target') === '32' ? 'B' : '');
-                    clearInterval(timer);
-                } else {
-                    el.textContent = Math.floor(current) + (el.getAttribute('data-target') === '32' ? 'B' : '');
-                }
-            }, 30);
-            counterObserver.unobserve(el);
-        }
-    });
-}, { threshold: 0.5 });
-
-statNumbers.forEach(el => counterObserver.observe(el));
 
 // ========== CREATORS DATA ==========
 const creators = [
-    { rank: 1, name: "Cristiano Ronaldo", username: "@cristiano", followers: "620M", score: 100, category: "Instagram", country: "Portugal", avatar: "CR", color: "from-yellow-400 to-pink-500" },
-    { rank: 2, name: "Virat Kohli", username: "@virat.kohli", followers: "265M", score: 99.8, category: "Cricket", country: "India", avatar: "VK", color: "from-green-500 to-yellow-500" },
-    { rank: 3, name: "MrBeast", username: "@mrbeast", followers: "300M+", score: 100, category: "YouTube", country: "USA", avatar: "MB", color: "from-red-600 to-red-800" }
+    { rank: 1, name: "Cristiano Ronaldo", username: "@cristiano", followers: "620M", score: 100, category: "Instagram", country: "Portugal", avatar: "CR" },
+    { rank: 2, name: "Virat Kohli", username: "@virat.kohli", followers: "265M", score: 99.8, category: "Cricket", country: "India", avatar: "VK" },
+    { rank: 3, name: "MrBeast", username: "@mrbeast", followers: "300M+", score: 100, category: "YouTube", country: "USA", avatar: "MB" }
 ];
 
 // ========== RENDER CREATORS ==========
@@ -106,7 +80,7 @@ function renderCreators() {
     grid.innerHTML = creators.map(creator => `
         <div class="creator-card">
             <div class="flex items-center gap-3 mb-3">
-                <div class="w-12 h-12 rounded-full bg-gradient-to-br ${creator.color} flex items-center justify-center text-white font-bold text-lg">
+                <div class="w-12 h-12 rounded-full bg-gradient-to-br from-purple-500 to-pink-500 flex items-center justify-center text-white font-bold text-lg">
                     ${creator.avatar}
                 </div>
                 <div>
@@ -114,7 +88,7 @@ function renderCreators() {
                     <p class="text-white/50 text-xs">${creator.username}</p>
                 </div>
                 <div class="ml-auto text-right">
-                    <span class="gradient-text-3d font-bold">${creator.score}</span>
+                    <span class="gradient-text font-bold">${creator.score}</span>
                     <div class="text-[10px] text-white/50">Score</div>
                 </div>
             </div>
@@ -132,89 +106,173 @@ function renderCreators() {
     `).join('');
 }
 
-renderCreators();
+// ========== STATS COUNTER ANIMATION ==========
+function animateStats() {
+    const statsElements = document.querySelectorAll('.stat-number');
+    
+    statsElements.forEach(el => {
+        const targetText = el.getAttribute('data-target') || el.innerText;
+        let target = parseInt(targetText);
+        let suffix = '';
+        
+        if (targetText.includes('B')) {
+            target = parseInt(targetText);
+            suffix = 'B+';
+        } else if (targetText.includes('+')) {
+            target = parseInt(targetText);
+            suffix = '+';
+        }
+        
+        if (isNaN(target)) target = 100;
+        
+        let current = 0;
+        const increment = target / 50;
+        const timer = setInterval(() => {
+            current += increment;
+            if (current >= target) {
+                el.textContent = target + suffix;
+                clearInterval(timer);
+            } else {
+                el.textContent = Math.floor(current) + suffix;
+            }
+        }, 30);
+    });
+}
+
+// ========== SCROLL REVEAL FOR CARDS ==========
+function initScrollReveal() {
+    const elements = document.querySelectorAll('.stat-card, .category-card, .creator-card');
+    const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                entry.target.style.opacity = '1';
+                entry.target.style.transform = 'translateY(0)';
+                observer.unobserve(entry.target);
+            }
+        });
+    }, { threshold: 0.1 });
+    
+    elements.forEach(el => {
+        el.style.opacity = '0';
+        el.style.transform = 'translateY(30px)';
+        el.style.transition = 'all 0.6s ease';
+        observer.observe(el);
+    });
+}
+
+// ========== SCROLL TOP BUTTON ==========
+const scrollTopBtn = document.createElement('div');
+scrollTopBtn.className = 'scroll-top-btn';
+scrollTopBtn.innerHTML = '<i class="fas fa-arrow-up text-white"></i>';
+document.body.appendChild(scrollTopBtn);
+
+scrollTopBtn.addEventListener('click', () => {
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+});
+
+window.addEventListener('scroll', () => {
+    if (window.scrollY > 500) {
+        scrollTopBtn.classList.add('visible');
+    } else {
+        scrollTopBtn.classList.remove('visible');
+    }
+});
+
+// ========== CATEGORY CARD CLICK ==========
+function initCategoryClicks() {
+    const categoryCards = document.querySelectorAll('.category-card');
+    categoryCards.forEach(card => {
+        card.addEventListener('click', () => {
+            const category = card.getAttribute('data-category') || card.innerText.trim();
+            alert(`📊 ${category} rankings coming soon!`);
+        });
+    });
+}
+
+// ========== SCROLL TO CATEGORIES ==========
+window.scrollToCategories = function() {
+    const categoriesSection = document.getElementById('categoriesSection');
+    if (categoriesSection) {
+        categoriesSection.scrollIntoView({ behavior: 'smooth' });
+    }
+};
 
 // ========== 3D BACKGROUND USING THREE.JS ==========
-import * as THREE from 'https://unpkg.com/three@0.128.0/build/three.module.js';
-
 function init3DBackground() {
     const container = document.getElementById('canvas-container');
     if (!container) return;
     
-    const scene = new THREE.Scene();
-    const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
-    const renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true });
-    
-    renderer.setSize(window.innerWidth, window.innerHeight);
-    renderer.setClearColor(0x000000, 0);
-    container.appendChild(renderer.domElement);
-    
-    // Create floating particles
-    const particlesGeometry = new THREE.BufferGeometry();
-    const particlesCount = 1500;
-    const posArray = new Float32Array(particlesCount * 3);
-    
-    for (let i = 0; i < particlesCount * 3; i += 3) {
-        posArray[i] = (Math.random() - 0.5) * 200;
-        posArray[i+1] = (Math.random() - 0.5) * 100;
-        posArray[i+2] = (Math.random() - 0.5) * 100 - 50;
-    }
-    
-    particlesGeometry.setAttribute('position', new THREE.BufferAttribute(posArray, 3));
-    
-    const particlesMaterial = new THREE.PointsMaterial({
-        size: 0.2,
-        color: 0xff7cf5,
-        transparent: true,
-        opacity: 0.4,
-        blending: THREE.AdditiveBlending
-    });
-    
-    const particlesMesh = new THREE.Points(particlesGeometry, particlesMaterial);
-    scene.add(particlesMesh);
-    
-    // Create a torus knot (3D shape)
-    const geometry = new THREE.TorusKnotGeometry(3, 0.8, 200, 32, 3, 4);
-    const material = new THREE.MeshBasicMaterial({
-        color: 0xff7cf5,
-        wireframe: true,
-        transparent: true,
-        opacity: 0.15
-    });
-    const torusKnot = new THREE.Mesh(geometry, material);
-    scene.add(torusKnot);
-    
-    camera.position.z = 30;
-    
-    // Animation
-    let time = 0;
-    function animate() {
-        requestAnimationFrame(animate);
-        time += 0.005;
+    import('https://unpkg.com/three@0.128.0/build/three.module.js').then((THREE) => {
+        const scene = new THREE.Scene();
+        const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
+        const renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true });
         
-        particlesMesh.rotation.y = time * 0.1;
-        particlesMesh.rotation.x = time * 0.05;
-        
-        torusKnot.rotation.x = time * 0.2;
-        torusKnot.rotation.y = time * 0.3;
-        
-        renderer.render(scene, camera);
-    }
-    
-    animate();
-    
-    // Handle resize
-    window.addEventListener('resize', () => {
-        camera.aspect = window.innerWidth / window.innerHeight;
-        camera.updateProjectionMatrix();
         renderer.setSize(window.innerWidth, window.innerHeight);
-    });
+        renderer.setClearColor(0x000000, 0);
+        container.appendChild(renderer.domElement);
+        
+        // Create floating particles
+        const particlesGeometry = new THREE.BufferGeometry();
+        const particlesCount = 1500;
+        const posArray = new Float32Array(particlesCount * 3);
+        
+        for (let i = 0; i < particlesCount * 3; i += 3) {
+            posArray[i] = (Math.random() - 0.5) * 200;
+            posArray[i+1] = (Math.random() - 0.5) * 100;
+            posArray[i+2] = (Math.random() - 0.5) * 100 - 50;
+        }
+        
+        particlesGeometry.setAttribute('position', new THREE.BufferAttribute(posArray, 3));
+        
+        const particlesMaterial = new THREE.PointsMaterial({
+            size: 0.2,
+            color: 0xff7cf5,
+            transparent: true,
+            opacity: 0.4,
+            blending: THREE.AdditiveBlending
+        });
+        
+        const particlesMesh = new THREE.Points(particlesGeometry, particlesMaterial);
+        scene.add(particlesMesh);
+        
+        // Create a torus knot (3D shape)
+        const geometry = new THREE.TorusKnotGeometry(3, 0.8, 200, 32, 3, 4);
+        const material = new THREE.MeshBasicMaterial({
+            color: 0xff7cf5,
+            wireframe: true,
+            transparent: true,
+            opacity: 0.15
+        });
+        const torusKnot = new THREE.Mesh(geometry, material);
+        scene.add(torusKnot);
+        
+        camera.position.z = 30;
+        
+        // Animation
+        let time = 0;
+        function animate() {
+            requestAnimationFrame(animate);
+            time += 0.005;
+            
+            particlesMesh.rotation.y = time * 0.1;
+            particlesMesh.rotation.x = time * 0.05;
+            
+            torusKnot.rotation.x = time * 0.2;
+            torusKnot.rotation.y = time * 0.3;
+            
+            renderer.render(scene, camera);
+        }
+        
+        animate();
+        
+        // Handle resize
+        window.addEventListener('resize', () => {
+            camera.aspect = window.innerWidth / window.innerHeight;
+            camera.updateProjectionMatrix();
+            renderer.setSize(window.innerWidth, window.innerHeight);
+        });
+    }).catch(err => console.log('3D loading error:', err));
 }
-
-// Wait for page load to initialize 3D
-window.addEventListener('load', () => {
-    setTimeout(init3DBackground, 100);
-});
 
 // ========== CREATE FLOATING PARTICLES ==========
 function createFloatingParticles() {
@@ -241,8 +299,8 @@ function createFloatingParticles() {
 }
 
 // Add particle animation to CSS dynamically
-const style = document.createElement('style');
-style.textContent = `
+const particleStyle = document.createElement('style');
+particleStyle.textContent = `
     @keyframes particleFloat {
         0% { transform: translateY(100vh) rotate(0deg); opacity: 0; }
         10% { opacity: 0.8; }
@@ -250,46 +308,7 @@ style.textContent = `
         100% { transform: translateY(-100vh) rotate(360deg); opacity: 0; }
     }
 `;
-document.head.appendChild(style);
-
-window.addEventListener('load', createFloatingParticles);
-
-// ========== SCROLL TO CATEGORIES ==========
-window.scrollToCategories = function() {
-    const categoriesSection = document.getElementById('categoriesSection');
-    if (categoriesSection) {
-        categoriesSection.scrollIntoView({ behavior: 'smooth' });
-    }
-};
-
-// ========== SCROLL TOP BUTTON ==========
-const scrollTopBtn = document.createElement('div');
-scrollTopBtn.className = 'scroll-top-btn';
-scrollTopBtn.innerHTML = '<i class="fas fa-arrow-up text-white"></i>';
-document.body.appendChild(scrollTopBtn);
-
-scrollTopBtn.addEventListener('click', () => {
-    window.scrollTo({ top: 0, behavior: 'smooth' });
-});
-
-window.addEventListener('scroll', () => {
-    if (window.scrollY > 500) {
-        scrollTopBtn.classList.add('visible');
-    } else {
-        scrollTopBtn.classList.remove('visible');
-    }
-});
-
-// ========== CATEGORY CARD CLICK ==========
-const categoryCards = document.querySelectorAll('.category-card');
-categoryCards.forEach(card => {
-    card.addEventListener('click', () => {
-        const category = card.getAttribute('data-category');
-        if (category) {
-            alert(`Showing ${category} rankings - Coming Soon!`);
-        }
-    });
-});
+document.head.appendChild(particleStyle);
 
 // ========== SMOOTH SCROLL FOR NAV LINKS ==========
 document.querySelectorAll('a[href^="#"]').forEach(anchor => {
@@ -303,13 +322,17 @@ document.querySelectorAll('a[href^="#"]').forEach(anchor => {
     });
 });
 
-// ========== GSAP ANIMATIONS (if GSAP loaded) ==========
-setTimeout(() => {
-    if (typeof gsap !== 'undefined') {
-        gsap.from('.hero h1', { opacity: 0, y: 50, duration: 1, delay: 0.5 });
-        gsap.from('.hero p', { opacity: 0, y: 30, duration: 1, delay: 0.8 });
-        gsap.from('.neon-btn', { opacity: 0, scale: 0.8, duration: 0.8, delay: 1.1, stagger: 0.2 });
-        gsap.from('.stat-card', { opacity: 0, y: 30, duration: 0.8, stagger: 0.1, scrollTrigger: { trigger: '.stats-container', start: 'top 80%' } });
-        gsap.from('.category-card', { opacity: 0, scale: 0.8, duration: 0.6, stagger: 0.1, scrollTrigger: { trigger: '#categoriesSection', start: 'top 80%' } });
-    }
-}, 100);
+// ========== INITIALIZE EVERYTHING ==========
+document.addEventListener('DOMContentLoaded', () => {
+    renderCreators();
+    animateStats();
+    initScrollReveal();
+    initCategoryClicks();
+    createFloatingParticles();
+    console.log('NowYourTurn - Website Loaded Successfully!');
+});
+
+// Initialize 3D background after load
+window.addEventListener('load', () => {
+    setTimeout(init3DBackground, 100);
+});
