@@ -2,198 +2,344 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
-    <title>NowYourTurn - 3D Global Rankings</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     
-    <!-- Tailwind CSS CDN -->
+    <!-- SEO Meta Tags -->
+    <title>NowYourTurn - World's Most Followed Creators & Rankings 2026</title>
+    <meta name="description" content="Discover the world's most followed creators, influencers, athletes, and celebrities. Updated rankings 2026 with followers count, influence score, and trending lists.">
+    <meta name="keywords" content="top creators, most followed, influencers ranking, social media rankings, cristiano ronaldo, virat kohli, mrbeast, instagram top, youtube kings">
+    <meta name="author" content="NowYourTurn">
+    <meta name="robots" content="index, follow">
+    
+    <!-- Open Graph for Social Media -->
+    <meta property="og:title" content="NowYourTurn - World's Most Followed Creators 2026">
+    <meta property="og:description" content="Discover who rules the world! Top creators, athletes, and celebrities ranked by influence.">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://apihirani10.github.io/NowYourTurn/">
+    
+    <!-- Canonical URL -->
+    <link rel="canonical" href="https://apihirani10.github.io/NowYourTurn/">
+    
+    <!-- Tailwind CSS -->
     <script src="https://cdn.tailwindcss.com"></script>
     
     <!-- Font Awesome -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
     
     <!-- External CSS -->
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
 
-<!-- Loading Screen -->
-<div class="loading-screen" id="loadingScreen">
-    <div class="loader"></div>
-    <div class="loader-text">NowYourTurn</div>
-</div>
+<!-- Skip to Main Content (Accessibility) -->
+<a href="#main-content" class="skip-link">Skip to main content</a>
 
-<!-- 3D Canvas Container -->
-<div id="canvas-container"></div>
-
-<!-- Particles Container -->
-<div id="particles-container"></div>
-
-<!-- Main Content -->
-<div class="relative z-10">
-
-    <!-- Navbar -->
-    <nav class="fixed top-0 w-full z-50 glass py-4 px-6 md:px-12 transition-all duration-300" id="navbar">
-        <div class="max-w-7xl mx-auto flex justify-between items-center">
-            <a href="/" class="text-2xl md:text-3xl font-black gradient-text-3d flex items-center gap-2">
-                <i class="fas fa-crown text-yellow-400 logo-crown"></i>
-                NowYourTurn
-            </a>
-            
-            <div class="hidden md:flex gap-8">
-                <a href="/" class="text-white/80 hover:text-[#ff7cf5] transition-all nav-link">Home</a>
-                <a href="#" class="text-white/80 hover:text-[#ff7cf5] transition-all nav-link" id="rankingsLink">Rankings</a>
-                <a href="#" class="text-white/80 hover:text-[#ff7cf5] transition-all nav-link" id="categoriesLink">Categories</a>
-                <a href="#" class="text-white/80 hover:text-[#ff7cf5] transition-all nav-link" id="trendingLink">Trending</a>
-                <a href="#" class="text-white/80 hover:text-[#ff7cf5] transition-all nav-link" id="aboutLink">About</a>
-            </div>
-            
-            <button class="md:hidden text-white text-2xl" id="mobileMenuBtn">
-                <i class="fas fa-bars"></i>
-            </button>
+<!-- Navbar -->
+<nav class="navbar" id="navbar">
+    <div class="nav-container">
+        <a href="/" class="logo">
+            <i class="fas fa-crown text-yellow-400"></i>
+            <span>NowYourTurn</span>
+        </a>
+        
+        <div class="nav-links">
+            <a href="/" class="active">Home</a>
+            <a href="#rankings">Rankings</a>
+            <a href="#categories">Categories</a>
+            <a href="#trending">Trending</a>
+            <a href="#about">About</a>
         </div>
-    </nav>
-
-    <!-- Mobile Menu -->
-    <div class="fixed top-0 right-0 w-64 h-full glass z-50 transform translate-x-full transition-transform duration-300" id="mobileMenu">
-        <button class="absolute top-4 right-4 text-white text-xl" id="closeMenuBtn">
-            <i class="fas fa-times"></i>
+        
+        <div class="search-container">
+            <i class="fas fa-search search-icon"></i>
+            <input type="text" id="searchInput" placeholder="Search creators...">
+            <button id="searchBtn">Go</button>
+        </div>
+        
+        <button class="mobile-menu-btn" id="mobileMenuBtn">
+            <i class="fas fa-bars"></i>
         </button>
-        <div class="flex flex-col gap-6 p-8 pt-20">
-            <a href="/" class="text-white/80 hover:text-[#ff7cf5] transition-all">Home</a>
-            <a href="#" class="text-white/80 hover:text-[#ff7cf5] transition-all rankings-link">Rankings</a>
-            <a href="#" class="text-white/80 hover:text-[#ff7cf5] transition-all categories-link">Categories</a>
-            <a href="#" class="text-white/80 hover:text-[#ff7cf5] transition-all trending-link">Trending</a>
-            <a href="#" class="text-white/80 hover:text-[#ff7cf5] transition-all about-link">About</a>
-        </div>
     </div>
+</nav>
 
-    <!-- Hero Section -->
-    <section class="min-h-screen flex items-center justify-center px-6 relative" id="heroSection">
-        <div class="text-center max-w-5xl mx-auto">
-            <div class="inline-block mb-6">
-                <span class="px-4 py-2 rounded-full text-sm font-semibold animated-border text-white">
-                    🔥 GLOBAL CREATOR INDEX 2026
-                </span>
-            </div>
-            
-            <h1 class="text-5xl md:text-7xl lg:text-8xl font-black mb-6">
-                Who <span class="gradient-text-3d">Rules</span>
-                <br>The World?
-            </h1>
-            
-            <p class="text-lg md:text-xl text-white/60 max-w-2xl mx-auto mb-8">
-                Discover the most influential creators, athletes, and celebrities 
-                ranked by <span class="text-[#ff7cf5]">AI-powered influence score</span>
-            </p>
-            
-            <div class="flex gap-4 justify-center flex-wrap">
-                <button onclick="scrollToCategories()" class="neon-btn px-8 py-3 rounded-full bg-gradient-to-r from-[#ff7cf5] to-[#00d2fd] text-black font-bold text-lg">
-                    Explore Rankings <i class="fas fa-arrow-right ml-2"></i>
-                </button>
-                <button class="neon-btn-outline px-8 py-3 rounded-full glass border border-white/20 text-white font-bold">
-                    <i class="fas fa-play mr-2"></i> Watch Demo
-                </button>
-            </div>
-        </div>
-    </section>
-
-    <!-- Stats Section -->
-    <div class="max-w-7xl mx-auto px-6 py-16">
-        <div class="grid grid-cols-2 md:grid-cols-4 gap-6">
-            <div class="glass-card rounded-2xl p-6 text-center card-reveal">
-                <div class="text-3xl md:text-4xl font-black gradient-text-3d stat-number" data-target="500">0</div>
-                <div class="text-white/50 text-sm mt-2">CREATORS</div>
-            </div>
-            <div class="glass-card rounded-2xl p-6 text-center card-reveal">
-                <div class="text-3xl md:text-4xl font-black gradient-text-3d stat-number" data-target="15">0</div>
-                <div class="text-white/50 text-sm mt-2">CATEGORIES</div>
-            </div>
-            <div class="glass-card rounded-2xl p-6 text-center card-reveal">
-                <div class="text-3xl md:text-4xl font-black gradient-text-3d stat-number" data-target="32">0</div>
-                <div class="text-white/50 text-sm mt-2">BILLION FOLLOWERS</div>
-            </div>
-            <div class="glass-card rounded-2xl p-6 text-center card-reveal">
-                <div class="text-3xl md:text-4xl font-black gradient-text-3d stat-number" data-target="50">0</div>
-                <div class="text-white/50 text-sm mt-2">COUNTRIES</div>
-            </div>
-        </div>
+<!-- Mobile Menu -->
+<div class="mobile-menu" id="mobileMenu">
+    <button class="close-menu" id="closeMenuBtn"><i class="fas fa-times"></i></button>
+    <div class="mobile-menu-links">
+        <a href="/">Home</a>
+        <a href="#rankings">Rankings</a>
+        <a href="#categories">Categories</a>
+        <a href="#trending">Trending</a>
+        <a href="#about">About</a>
     </div>
-
-    <!-- Categories Section -->
-    <div class="max-w-7xl mx-auto px-6 py-16" id="categoriesSection">
-        <h2 class="text-3xl md:text-4xl font-bold text-center mb-12">
-            Browse by <span class="gradient-text-3d">Category</span>
-        </h2>
-        <div class="grid grid-cols-2 md:grid-cols-5 gap-4 md:gap-6">
-            <div class="category-card cursor-pointer" data-category="cricket">
-                <div class="w-16 h-16 mx-auto rounded-full bg-gradient-to-br from-green-500 to-yellow-500 flex items-center justify-center text-2xl">
-                    🏏
-                </div>
-                <span class="mt-3 text-sm font-semibold">Cricket</span>
-            </div>
-            <div class="category-card cursor-pointer" data-category="instagram">
-                <div class="w-16 h-16 mx-auto rounded-full bg-gradient-to-br from-yellow-400 to-pink-500 flex items-center justify-center text-2xl">
-                    📸
-                </div>
-                <span class="mt-3 text-sm font-semibold">Instagram</span>
-            </div>
-            <div class="category-card cursor-pointer" data-category="youtube">
-                <div class="w-16 h-16 mx-auto rounded-full bg-gradient-to-br from-red-600 to-red-800 flex items-center justify-center text-2xl">
-                    ▶️
-                </div>
-                <span class="mt-3 text-sm font-semibold">YouTube</span>
-            </div>
-            <div class="category-card cursor-pointer" data-category="business">
-                <div class="w-16 h-16 mx-auto rounded-full bg-gradient-to-br from-blue-500 to-cyan-400 flex items-center justify-center text-2xl">
-                    💼
-                </div>
-                <span class="mt-3 text-sm font-semibold">Business</span>
-            </div>
-            <div class="category-card cursor-pointer" data-category="entertainment">
-                <div class="w-16 h-16 mx-auto rounded-full bg-gradient-to-br from-purple-500 to-pink-500 flex items-center justify-center text-2xl">
-                    🎬
-                </div>
-                <span class="mt-3 text-sm font-semibold">Entertainment</span>
-            </div>
-        </div>
-    </div>
-
-    <!-- Top Creators Section -->
-    <div class="max-w-7xl mx-auto px-6 py-16">
-        <h2 class="text-3xl md:text-4xl font-bold text-center mb-12">
-            🏆 Top Ranked <span class="gradient-text-3d">Creators</span>
-        </h2>
-        <div class="grid grid-cols-1 md:grid-cols-3 gap-6" id="creatorsGrid">
-            <!-- Creators will be loaded via JavaScript -->
-        </div>
-    </div>
-
-    <!-- CTA Section -->
-    <div class="max-w-4xl mx-auto px-6 py-16 text-center">
-        <div class="glass-card rounded-3xl p-8 md:p-12">
-            <h3 class="text-2xl md:text-3xl font-bold mb-4">Ready to Find Your Favorite Creator?</h3>
-            <p class="text-white/60 mb-6">Join thousands of users exploring the world's most comprehensive ranking platform.</p>
-            <button class="neon-btn px-8 py-3 rounded-full bg-gradient-to-r from-[#ff7cf5] to-[#00d2fd] text-black font-bold">
-                Get Started Now <i class="fas fa-arrow-right ml-2"></i>
-            </button>
-        </div>
-    </div>
-
-    <!-- Footer -->
-    <footer class="border-t border-white/10 py-8 mt-16">
-        <div class="max-w-7xl mx-auto px-6 text-center">
-            <p class="text-white/40 text-sm">© 2026 NowYourTurn - The Global Creator Index</p>
-            <div class="flex justify-center gap-6 mt-4">
-                <a href="#" class="text-white/40 hover:text-[#ff7cf5] text-sm transition-all">About</a>
-                <a href="#" class="text-white/40 hover:text-[#ff7cf5] text-sm transition-all">Contact</a>
-                <a href="#" class="text-white/40 hover:text-[#ff7cf5] text-sm transition-all">Privacy</a>
-                <a href="#" class="text-white/40 hover:text-[#ff7cf5] text-sm transition-all">Terms</a>
-            </div>
-        </div>
-    </footer>
 </div>
 
-<!-- External JavaScript -->
-<script src="script.js"></script>
+<main id="main-content">
+
+<!-- Hero Section -->
+<section class="hero">
+    <div class="hero-content">
+        <div class="hero-badge">
+            <span class="live-dot"></span>
+            LIVE 2026 RANKINGS
+        </div>
+        <h1>Who <span class="gradient-text">Rules</span> The World?</h1>
+        <p class="hero-subtitle">The definitive leaderboard of influence, excellence, and dominance across the globe. Updated weekly with real-time data.</p>
+        
+        <div class="hero-buttons">
+            <button class="btn-primary" onclick="scrollToRankings()">
+                Explore Rankings <i class="fas fa-arrow-right"></i>
+            </button>
+            <button class="btn-secondary" onclick="alert('Trending creators coming soon!')">
+                <i class="fas fa-fire"></i> Trending Now
+            </button>
+        </div>
+        
+        <div class="hero-stats">
+            <div class="hero-stat">
+                <span class="hero-stat-number">500+</span>
+                <span class="hero-stat-label">Creators Tracked</span>
+            </div>
+            <div class="hero-stat">
+                <span class="hero-stat-number">15+</span>
+                <span class="hero-stat-label">Categories</span>
+            </div>
+            <div class="hero-stat">
+                <span class="hero-stat-number">50+</span>
+                <span class="hero-stat-label">Countries</span>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Quick Stats Bar -->
+<div class="stats-bar">
+    <div class="stat-item">
+        <i class="fas fa-chart-line"></i>
+        <span>Most Followed: <strong>Cristiano Ronaldo</strong> (620M+)</span>
+    </div>
+    <div class="stat-item">
+        <i class="fas fa-trophy"></i>
+        <span>Top Score: <strong>MrBeast</strong> (100/100)</span>
+    </div>
+    <div class="stat-item">
+        <i class="fas fa-fire"></i>
+        <span>Trending: <strong>Virat Kohli</strong> ↑ +2.5%</span>
+    </div>
+</div>
+
+<!-- Rankings Section -->
+<section class="rankings-section" id="rankings">
+    <div class="section-header">
+        <h2>📊 <span class="gradient-text">Global Rankings</span> 2026</h2>
+        <p class="section-subtitle">Most followed and influential creators across all platforms</p>
+    </div>
+    
+    <!-- Filter Tabs -->
+    <div class="filter-tabs">
+        <button class="filter-btn active" data-filter="all">All</button>
+        <button class="filter-btn" data-filter="Sports">🏆 Sports</button>
+        <button class="filter-btn" data-filter="YouTube">▶️ YouTube</button>
+        <button class="filter-btn" data-filter="Instagram">📸 Instagram</button>
+        <button class="filter-btn" data-filter="Business">💼 Business</button>
+        <button class="filter-btn" data-filter="Entertainment">🎬 Entertainment</button>
+    </div>
+    
+    <!-- Creators Grid -->
+    <div class="creators-grid" id="creatorsGrid"></div>
+    
+    <!-- View All Button -->
+    <div class="text-center mt-8">
+        <button class="view-all-btn" onclick="alert('All rankings coming soon!')">
+            View All 500+ Creators <i class="fas fa-arrow-right"></i>
+        </button>
+    </div>
+</section>
+
+<!-- Categories Section -->
+<section class="categories-section" id="categories">
+    <div class="section-header">
+        <h2>🎯 Browse by <span class="gradient-text">Category</span></h2>
+        <p class="section-subtitle">Find creators by niche and industry</p>
+    </div>
+    
+    <div class="categories-grid">
+        <div class="category-card" data-category="Cricket">
+            <div class="category-icon cricket">🏏</div>
+            <h3>Cricket</h3>
+            <p>Top cricketers & players</p>
+            <span class="category-count">25+ creators</span>
+        </div>
+        <div class="category-card" data-category="Instagram">
+            <div class="category-icon instagram">📸</div>
+            <h3>Instagram</h3>
+            <p>Most followed stars</p>
+            <span class="category-count">100+ creators</span>
+        </div>
+        <div class="category-card" data-category="YouTube">
+            <div class="category-icon youtube">▶️</div>
+            <h3>YouTube</h3>
+            <p>Top subscribers</p>
+            <span class="category-count">80+ creators</span>
+        </div>
+        <div class="category-card" data-category="Business">
+            <div class="category-icon business">💼</div>
+            <h3>Business</h3>
+            <p>Entrepreneurs & leaders</p>
+            <span class="category-count">40+ creators</span>
+        </div>
+        <div class="category-card" data-category="Entertainment">
+            <div class="category-icon entertainment">🎬</div>
+            <h3>Entertainment</h3>
+            <p>Celebrities & actors</p>
+            <span class="category-count">60+ creators</span>
+        </div>
+        <div class="category-card" data-category="Gaming">
+            <div class="category-icon gaming">🎮</div>
+            <h3>Gaming</h3>
+            <p>Streamers & gamers</p>
+            <span class="category-count">50+ creators</span>
+        </div>
+        <div class="category-card" data-category="Music">
+            <div class="category-icon music">🎵</div>
+            <h3>Music</h3>
+            <p>Artists & singers</p>
+            <span class="category-count">45+ creators</span>
+        </div>
+        <div class="category-card" data-category="Tech">
+            <div class="category-icon tech">💻</div>
+            <h3>Tech</h3>
+            <p>Innovators & reviewers</p>
+            <span class="category-count">35+ creators</span>
+        </div>
+    </div>
+</section>
+
+<!-- Trending Section -->
+<section class="trending-section" id="trending">
+    <div class="section-header">
+        <h2>🔥 <span class="gradient-text">Trending</span> This Week</h2>
+        <p class="section-subtitle">Creators gaining the most momentum</p>
+    </div>
+    
+    <div class="trending-grid">
+        <div class="trending-card">
+            <div class="trending-rank">#1</div>
+            <div class="trending-info">
+                <h4>Virat Kohli</h4>
+                <p>Cricket • +2.5% growth</p>
+            </div>
+            <div class="trending-up"><i class="fas fa-arrow-up"></i> +2.5%</div>
+        </div>
+        <div class="trending-card">
+            <div class="trending-rank">#2</div>
+            <div class="trending-info">
+                <h4>MrBeast</h4>
+                <p>YouTube • +1.8% growth</p>
+            </div>
+            <div class="trending-up"><i class="fas fa-arrow-up"></i> +1.8%</div>
+        </div>
+        <div class="trending-card">
+            <div class="trending-rank">#3</div>
+            <div class="trending-info">
+                <h4>Shah Rukh Khan</h4>
+                <p>Entertainment • +3.2% growth</p>
+            </div>
+            <div class="trending-up"><i class="fas fa-arrow-up"></i> +3.2%</div>
+        </div>
+        <div class="trending-card">
+            <div class="trending-rank">#4</div>
+            <div class="trending-info">
+                <h4>Elon Musk</h4>
+                <p>Business • +1.2% growth</p>
+            </div>
+            <div class="trending-up"><i class="fas fa-arrow-up"></i> +1.2%</div>
+        </div>
+    </div>
+</section>
+
+<!-- About Section -->
+<section class="about-section" id="about">
+    <div class="about-content">
+        <h2>About <span class="gradient-text">NowYourTurn</span></h2>
+        <p>NowYourTurn is the world's most comprehensive creator ranking platform. We track and rank the most influential people across all categories including Sports, Music, Business, Gaming, Entertainment, and more.</p>
+        <div class="about-features">
+            <div class="feature">
+                <i class="fas fa-chart-simple"></i>
+                <span>AI-Powered Rankings</span>
+            </div>
+            <div class="feature">
+                <i class="fas fa-clock"></i>
+                <span>Updated Weekly</span>
+            </div>
+            <div class="feature">
+                <i class="fas fa-globe"></i>
+                <span>Global Coverage</span>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Newsletter Section -->
+<section class="newsletter-section">
+    <div class="newsletter-card">
+        <h3>📧 Get Weekly Rankings</h3>
+        <p>Subscribe to get the latest rankings directly in your inbox</p>
+        <form class="newsletter-form" id="newsletterForm">
+            <input type="email" placeholder="Enter your email" required>
+            <button type="submit">Subscribe</button>
+        </form>
+    </div>
+</section>
+
+</main>
+
+<!-- Footer -->
+<footer class="footer">
+    <div class="footer-content">
+        <div class="footer-brand">
+            <i class="fas fa-crown"></i>
+            <span>NowYourTurn</span>
+            <p>The Global Creator Index</p>
+        </div>
+        <div class="footer-links">
+            <div class="footer-column">
+                <h4>Quick Links</h4>
+                <a href="/">Home</a>
+                <a href="#rankings">Rankings</a>
+                <a href="#categories">Categories</a>
+                <a href="#trending">Trending</a>
+            </div>
+            <div class="footer-column">
+                <h4>Legal</h4>
+                <a href="#">Privacy Policy</a>
+                <a href="#">Terms of Use</a>
+                <a href="#">Disclaimer</a>
+            </div>
+            <div class="footer-column">
+                <h4>Connect</h4>
+                <a href="#"><i class="fab fa-twitter"></i> Twitter</a>
+                <a href="#"><i class="fab fa-instagram"></i> Instagram</a>
+                <a href="#"><i class="fab fa-youtube"></i> YouTube</a>
+            </div>
+        </div>
+    </div>
+    <div class="footer-bottom">
+        <p>&copy; 2026 NowYourTurn. All rights reserved. Rankings are updated weekly based on real-time data.</p>
+    </div>
+</footer>
+
+<!-- Progress Bar -->
+<div class="progress-bar" id="progressBar"></div>
+
+<!-- Scroll Top Button -->
+<div class="scroll-top-btn" id="scrollTopBtn">
+    <i class="fas fa-arrow-up"></i>
+</div>
+
+<script src="script.js" type="module"></script>
 </body>
 </html>
